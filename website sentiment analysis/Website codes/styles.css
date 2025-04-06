@@ -1,0 +1,147 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("background.gif");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+
+
+.navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(20, 20, 20, 0.6);
+
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+
+
+    overflow: hidden;
+}
+.navbar ul{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+.navbar a{
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+.navbar a:hover{
+    background: hsl(0, 0%, 10%);
+}
+.navbar li{
+    float: right;
+}
+
+/* Centering main content below navbar */
+.container {
+    background: linear-gradient(to bottom, rgba(0, 31, 63, 0.8), rgba(0, 51, 102, 0.8));
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 1000px;
+    opacity: 0.85;
+    margin-top: 80px; /* Prevent overlap with navbar */
+}
+
+/* Content */
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-section {
+    width: 60%;
+}
+
+.text-area {
+    width: 95%;
+    height: 100px;
+    background-color: #45549c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    resize: none;
+}
+
+.result {
+    margin-top: 10px;
+}
+
+.evaluate-btn {
+    background-color: #4e60a9;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.evaluate-btn:hover {
+    color: black;
+    background-color: white;
+}
+
+.separator {
+    width: 2px;
+    background-color: #a4b4e8;
+    margin: 0 20px;
+}
+
+/* Dynamic Image */
+.right-section {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dynamic-image {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0f1e;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #001aff, #0077ff);
+    border-radius: 10px;
+    box-shadow: 0 0 5px #00eaff;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #00c8ff, #0055ff);
+    cursor: pointer;
+}
+
+
+
+

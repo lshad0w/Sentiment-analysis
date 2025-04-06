@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Sentiment Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!--navbar is for future use-->
+    <div class="navbar">
+        <ul>
+            <li><a href="index.html">Teachable Machine</a></li>
+            <li><a href="about.html">Chatbot</a></li>
+            <li><a href="products.html">Sentiment Analysis</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <div class="left-section">
+                <textarea class="text-area" id="textInput" placeholder="Enter your comment here..."></textarea>
+                <div class="result">
+                    <strong>Result:</strong> <span id="output"></span>
+                </div>
+                <button class="evaluate-btn" onclick="predictSentiment()">Evaluate</button>
+            </div>
+            <div class="separator"></div>
+            <div class="right-section">
+                <img src="" id="dynamicImage" alt="Dynamic Image" class="dynamic-image">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
