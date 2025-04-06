@@ -32,7 +32,7 @@ function predictSentiment() {
 
     console.log("Review:", review);  
 
-    fetch('http://127.0.0.1:8971/predict', {//insert your api and port here
+    fetch(//insert your api and port here. example('(host result when running main.py)(port number)/predict'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ review: review }),
