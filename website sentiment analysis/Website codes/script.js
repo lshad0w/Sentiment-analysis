@@ -7,18 +7,27 @@ function showImage() {
 window.onload = showImage;
 
 function updateImageBasedOnResult() {
-    image.style.visibility = "visible";
 
-    let resultText = document.getElementById("output").innerText;
+
+    let resultText = document.getElementById("output");
     let imageElement = document.getElementById("dynamicImage");
 
     if (resultText === "Positive") {
+        image.style.visibility = "visible";
+        resultText.style.color = "green";
         imageElement.src = "happy.png";
     } else if (resultText === "Negative") {
+        image.style.visibility = "visible";
+        resultText.style.color = "red";
         imageElement.src = "angry.png";
+    } else if (resultText === "Neutral") {
+        image.style.visibility = "visible";
+        resultText.style.color = "white";
+        imageElement.src = "neutral.jpg"; 
     } else {
-        imageElement.src = "neutral.png";
-    }
+        resultText.style.color = "white";
+
+}
 }
 
 function predictSentiment() {
@@ -27,12 +36,13 @@ function predictSentiment() {
 
     if (!review.trim()) {
         resultDiv.textContent = "Please enter a review.";
+        updateImageBasedOnResult();
         return;
     }
 
     console.log("Review:", review);  
 
-    fetch(//insert your api and port here. example('(host result when running main.py)(port number)/predict'), {
+    fetch('http://127.0.0.1:8971/predict', {//insert your api and port here
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ review: review }),
@@ -51,4 +61,5 @@ function predictSentiment() {
         console.error('Error:', error);
         resultDiv.textContent = "Error occurred, please try again later.";
     });
+    updateImageBasedOnResult();
 }
