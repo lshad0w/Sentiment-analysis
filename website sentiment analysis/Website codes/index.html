@@ -4,34 +4,211 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Sentiment Analysis</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!--navbar is for future use-->
-    <div class="navbar">
+    <body>
+        
+      <iframe id="youtubePlayer" width="0" height="0" 
+      src="https://www.youtube.com/embed/HQwLPhE2zys?playlist=HQwLPhE2zys&autoplay=1"
+      frameborder="0" allow="autoplay">
+      </iframe>
+
+
+    <div class="sidebar">
+      <div class="logo">
+        <a href="#">
+          <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png" alt="Logo" />
+        </a>
+      </div>
+
+      <div class="navigation">
         <ul>
-            <li><a href="navigation.html">Teachable Machine</a></li>
-            <li><a href="navigation.html">Chatbot</a></li>
-            <li><a href="navigation.html">Sentiment Analysis</a></li>
+          <li>
+            <a href="#">
+              <span class="fa fa-home"></span>
+              <span>Home</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="fa fa-search"></span>
+              <span>Search</span>
+            </a>
+          </li>
         </ul>
+      </div>
+
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <span class="fa fas fa-book"></span>
+              <span>Teachable Machine</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="fa fas fa-book"></span>
+              <span>Chatbot</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <span class="fa fas fa-book"></span>
+              <span>Sentiment Analysis</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
     </div>
 
-    <div class="container">
-        <div class="content">
-            <div class="left-section">
-                <textarea class="text-area" id="textInput" placeholder="Enter your comment here..."></textarea>
-                <div class="result">
-                    <strong>Result:</strong> <span id="output"></span>
-                </div>
-                <button class="evaluate-btn" onclick="predictSentiment()">Evaluate</button>
-            </div>
-            <div class="separator"></div>
-            <div class="right-section">
-                <img src="" id="dynamicImage" alt="Dynamic Image" class="dynamic-image">
-            </div>
+    <div class="main-container">
+      <div class="topbar">
+        <div class="prev-next-buttons">
+          <button type="button" class="fa fas fa-chevron-left"></button>
+          <button type="button" class="fa fas fa-chevron-right"></button>
         </div>
-    </div>
 
+        <div class="navbar">
+          <ul>
+            <li>
+              <a href="#">Premium</a>
+            </li>
+            <li>
+              <a href="#">Support</a>
+            </li>
+            <li>
+              <a href="#">Download</a>
+            </li>
+            <li class="divider">|</li>
+            <li>
+              <a href="#">Sign Up</a>
+            </li>
+          </ul>
+          <button type="button">Log In</button>
+        </div>
+      </div>
+
+      <div class="spotify-playlists">
+        <h2>Sentiment Analysis</h2>
+        <div class="container">
+            <div class="left-section">
+              <textarea class="text-area" id="textInput" placeholder="Enter your comment here..."></textarea>
+              <div class="result">
+                <strong>Result:</strong> <span id="output"></span>
+              </div>
+              <button class="evaluate-btn" onclick="predictSentiment()">Evaluate</button>
+            </div>
+        
+            <div class="separator"></div>
+        
+            <div class="right-section">
+              <img src="background.gif" 
+                   id="dynamicImage" 
+                   alt="Dynamic Image" 
+                   class="dynamic-image" />
+                   
+            <h4 style="text-align: left; color: white;">Top Hits</h4>
+              <div class="spotify-charts">
+                <div class="chart-item"><span>#1</span> - I Was Never There - The Weeknd</div>
+                <div class="chart-item"><span>#2</span> - Call Out My Name - The Weekend</div>
+                <div class="chart-item"><span>#3</span> - I Wanna Be Yours - Arctic Monkeys</div>
+                <div class="chart-item"><span>#4</span> - Consume - Chase Atlantic</div>
+                <div class="chart-item"><span>#5</span> - floki x lost soul down - Artist</div>
+                <div class="chart-item"><span>#6</span> - Lebron Lebron Lebron - Lebron</div>
+                <div class="chart-item"><span>#7</span> - Oh Mister Lebron where ever you are - Lebron</div>
+                <div class="chart-item"><span>#8</span> - You are my sunshine - Lebron</div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+          
+
+
+    <div class="spotify-playlists">
+        <h2>Spotify Playlists</h2>
+
+        <div class="list">
+          <div class="item">
+            <img src="https://yt3.googleusercontent.com/Tr_PJ8ZzY_NXFuq0L2jg3WpX4aduBlsaZnEJgvw1EwgZMnnfRc-up8BrcdlQetWCozPX1uBRB3g=s900-c-k-c0x00ffffff-no-rj" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Favorites 1</h4>
+            <p>Whatsaheart Playlist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab676161000051745ec3cb2f3f7175b855286695" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Favorites 2</h4>
+            <p>Wisp Playlist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d0000b2735a0c2870f4f309e382d1fad6" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Favorites 3</h4>
+            <p>Chase Atlantic Playlist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e02ee14a6d816e596e176575962" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Favorites 4</h4>
+            <p>The Neighbourhood Playlist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/5419a05563a9ba8cb16fe207199c298f621eef85" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Favorites 5</h4>
+            <p>Crystal Castles Playlist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.scdn.co/image/ab67616d00001e02c87bfeef81a210ddb7f717b5" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Favorites 6</h4>
+            <p>The Weekend Playlist</p>
+          </div>
+
+          <div class="item">
+            <img src="https://i.pinimg.com/236x/34/5c/59/345c59deedbac6cedc82f5fd636226a3.jpg" />
+            <div class="play">
+              <span class="fa fa-play"></span>
+            </div>
+            <h4>Favorites 6</h4>
+            <p>Random Playlist</p>
+          </div>
+          
+
+        </div>
+      </div>
+
+
+    <script
+      src="https://kit.fontawesome.com/23cecef777.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js"></script>
-</body>
-</html>
+
+    
+  </body>
+
+  </html>
