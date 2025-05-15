@@ -44,19 +44,20 @@ df['sentiment'] = df['score'].apply(stars_to_sentiment)
 df
 
 import nltk
+#Text cleaning
 nltk.download('wordnet')
 def preprocess_text(text):
-    text = str(text).lower()  # Convert to lowercase
-    text = contractions.fix(text)  # Expand contractions (e.g., "can't" → "cannot")
-    text = emoji.demojize(text)  # Convert emojis to text (e.g., "😊" → ":smiling_face_with_smiling_eyes:")
-    text = re.sub(r"https?://\S+|www\.\S+", "", text)  # Remove URLs
-    text = re.sub(r"\d+", "", text)  # Remove numbers
-    text = re.sub(r"[^\w\s]", "", text)  # Remove punctuation
+    text = str(text).lower() 
+    text = contractions.fix(text)  
+    text = emoji.demojize(text) 
+    text = re.sub(r"https?://\S+|www\.\S+", "", text)  
+    text = re.sub(r"\d+", "", text) 
+    text = re.sub(r"[^\w\s]", "", text) 
 
-    tokens = word_tokenize(text)  # Tokenize words
+    tokens = word_tokenize(text)  
     stop_words = set(stopwords.words('english'))
     lemmatizer = WordNetLemmatizer()
-    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]  # Remove stopwords & lemmatize
+    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words] 
 
     return ' '.join(tokens)
 
@@ -88,7 +89,7 @@ import numpy as np
 from sklearn.model_selection import GridSearchCV
 from collections import Counter
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MaxAbsScaler   #from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MaxAbsScaler 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
@@ -96,20 +97,20 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import RandomizedSearchCV
 
-# Convert sentiment labels to numerical format
+#convert sentiment labels to numerical format
 sentiment_mapping = {"positive": 2, "neutral": 1, "negative": 0}
 df["sentiment"] = df["sentiment"].map(sentiment_mapping)
 
-# Verify conversion
-print(df["sentiment"].unique())  # Should print: [2, 1, 0]
+#verify conversion
+print(df["sentiment"].unique()) 
 
-# Step 2: TF-IDF Vectorization
+#step 2: TF-IDF Vectorization
 vectorizer = TfidfVectorizer(max_features=40000, ngram_range=(1,2),sublinear_tf=True)
-X = vectorizer.fit_transform(df["processed_content"])  # Convert text to numerical form
-y = df["sentiment"]  # Target variable
-print("TF-IDF shape:", X.shape)  # Check transformed data shape
+X = vectorizer.fit_transform(df["processed_content"]) 
+y = df["sentiment"] 
+print("TF-IDF shape:", X.shape)  
 
-# Step 3: Balance Dataset using SMOTE
+#step 3: Balance Dataset using SMOTE
 smote = SMOTE(random_state=42)
 X_resampled, y_resampled = smote.fit_resample(X, y)
 
@@ -120,11 +121,11 @@ print("Class distribution after SMOTE:", Counter(y_resampled))
 smote_tomek = SMOTETomek(random_state=42)
 X_resampled, y_resampled = smote_tomek.fit_resample(X, y)
 
-# Check distribution after balancing
+#check distribution after balancing
 print("Class distribution after SMOTE-Tomek:", Counter(y_resampled))
 
-# Step 4: Split Data into Train & Test
-# Splitting the dataset (75% train, 25% test)
+#step 4: Split Data into Train & Test
+#splitting the dataset (75% train, 25% test)
 X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.25, random_state=42)
 
 print("Training set size:", X_train.shape)
@@ -133,26 +134,23 @@ print("Testing set size:", X_test.shape)
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LogisticRegression
 
-# Define hyperparameter grid
+#sefine hyperparameter grid
 param_grid = {
-    "C": np.logspace(-4, 4, 50),  # Search for best C
-    "penalty": ["l2"],  # L2 regularization (newton-cg does not support L1)
+    "C": np.logspace(-4, 4, 50), 
+    "penalty": ["l2"],  
 }
 
-# Define GridSearchCV
+#define GridSearchCV
 grid_search = GridSearchCV(
     estimator=LogisticRegression(random_state=42, solver="newton-cg", max_iter=2000),
     param_grid=param_grid,
-    scoring="precision_macro",  # Use precision for multiclass classification
-    cv=10,  # 10-fold cross-validation
-    n_jobs=-1,  # Use all CPU cores
-    verbose=1,  # Show progress
+    scoring="precision_macro", 
+    cv=10, 
+    n_jobs=-1,  
+    verbose=1, 
 )
-
-# Fit Grid Search
 grid_search.fit(X_train, y_train)
 
-# Extract best hyperparameters
 best_params = grid_search.best_params_
 best_score = grid_search.best_score_
 
@@ -161,7 +159,7 @@ print("Best Parameters:", best_params)
 
 
 
-# Step 6: Train Logistic Regression Model
+#step 6: Train Logistic Regression Model
 best_logistic = LogisticRegression(
     C=best_params["C"],
     penalty=best_params.get("penalty", "l2"),
@@ -170,15 +168,12 @@ best_logistic = LogisticRegression(
     random_state=42
 )
 
-# Train the model with optimized parameters
+#train the model with optimized parameters
 best_logistic.fit(X_train, y_train)
 
 print("Model training complete with Bayesian Optimization parameters!")
 
-# Step 7: Make Predictions & Evaluate (end of trial run)
-# Making predictions
-#y_pred = best_pipeline.predict(X_test)  # Scaling applied automatically
-
+#step 7: Make Predictions & Evaluate 
 
 y_pred = best_logistic.predict(X_test)
 
@@ -186,7 +181,7 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Test Accuracy: {accuracy * 100:.2f}%")
 print("Classification Report:\n", classification_report(y_test, y_pred))
 
-#Step 6 confusion matrix to visualize the result
+#optional step: confusion matrix to visualize the result
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 import seaborn as sns
 
@@ -195,13 +190,13 @@ cm = confusion_matrix(y_test, y_pred)
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Negative', 'Neutral', 'Positive'], yticklabels=['Negative', 'Neutral', 'Positive'])
 
 def predict_sentiment(review):
-    processed_review = preprocess_text(review)  # Apply same preprocessing
-    review_tfidf = vectorizer.transform([processed_review])  # Convert to TF-IDF
-    prediction = best_logistic.predict(review_tfidf)  # Get prediction
-    sentiment_label = {2: "Positive", 1: "Neutral", 0: "Negative"}[prediction[0]]  # Convert back to label
+    processed_review = preprocess_text(review)
+    review_tfidf = vectorizer.transform([processed_review]) 
+    prediction = best_logistic.predict(review_tfidf)
+    sentiment_label = {2: "Positive", 1: "Neutral", 0: "Negative"}[prediction[0]]
     return sentiment_label
 
-# Example:
+#example:
 print(predict_sentiment("This is the best app I’ve ever used, but it still lacks features."))
 print(predict_sentiment("The interface is good, but the performance is awful..."))
 
